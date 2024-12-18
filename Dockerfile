@@ -15,6 +15,7 @@
 # Install build dependencies, build the package
 FROM ubuntu:20.04 AS builder
 
+
 ENV DEBIAN_FRONTEND=noninteractive
 ENV PATH=/bioinf-tools/:/bioinf-tools/enaBrowserTools/python3/:$PATH
 ENV LANG=C.UTF-8
@@ -28,13 +29,15 @@ RUN $VIR_WF_DIR/.ci/install_dependencies.sh /bioinf-tools
 # COPY . $VIR_WF_DIR
 
 
-FROM python:3.10-slim
+FROM python:3.10-slim-buster
 RUN apt update && apt install -y git
 
 COPY --from=builder /viridian /viridian
+COPY --from=builder /bioinf-tools /bioinf-tools
 COPY . /viridian
-RUN ls -lhat /viridian
+RUN cp /bioinf-tools/exporting_executables/* /usr/bin
 RUN cd /viridian \
+  && bash .ci/install_mummer.sh \
   && ls -lhat \
   && pip install ".[dev]" \
   && pytest

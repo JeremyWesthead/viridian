@@ -40,6 +40,7 @@ if [ ! -d $install_root ]; then
   mkdir $install_root
 fi
 cd $install_root
+mkdir exporting_executables
 
 #_____________________ enaBrowserTools ____________________#
 cd $install_root
@@ -53,7 +54,7 @@ cd NGmerge-git
 git checkout 224fc6a0066024e05965d101d998704815cb4c41
 make
 cd ..
-mv NGmerge-git/NGmerge .
+mv NGmerge-git/NGmerge exporting_executables
 rm -rf NGmerge-git
 
 
@@ -64,7 +65,7 @@ tar xf bcftools-1.10.2.tar.bz2
 cd bcftools-1.10.2/
 make
 cd ..
-mv bcftools-1.10.2/bcftools .
+mv bcftools-1.10.2/bcftools exporting_executables
 rm -rf bcftools-1.10.2
 
 #________________________ vt ________________________________#
@@ -74,7 +75,7 @@ cd vt-git
 git checkout 2187ff6347086e38f71bd9f8ca622cd7dcfbb40c
 make
 cd ..
-mv vt-git/vt .
+mv vt-git/vt exporting_executables
 rm -rf vt-git
 
 #________________________ minimap2 __________________________#
@@ -90,7 +91,7 @@ else
     make
 fi
 cd ..
-mv minimap2_git/minimap2 .
+mv minimap2_git/minimap2 exporting_executables
 rm -rf minimap2_git
 
 #________________________ racon _____________________________#
@@ -102,20 +103,8 @@ cd build
 cmake -DCMAKE_BUILD_TYPE=Release ..
 make CC=gcc-10 CPP=g++-10 CXX=g++-10 LD=g++-10
 cd ../../
-mv racon-git/build/bin/racon .
+mv racon-git/build/bin/racon exporting_executables
 rm -rf racon-git
-
-#________________________ mummer ____________________________#
-cd $install_root
-wget -q https://github.com/mummer4/mummer/releases/download/v4.0.0rc1/mummer-4.0.0rc1.tar.gz
-tar -xvf mummer-4.0.0rc1.tar.gz
-cd mummer-4.0.0rc1
-./configure LDFLAGS=-static
-make
-make install
-ldconfig
-cd ..
-rm -rf mummer-4.0.0rc1
 
 #______________________ ReadItAndKeep _______________________#
 cd $install_root
@@ -125,5 +114,5 @@ git checkout 61ae15be1e515c960b0135eae7dd59568a9de30d
 cd src
 make
 cd $install_root
-mv read-it-and-keep/src/readItAndKeep .
+mv read-it-and-keep/src/readItAndKeep exporting_executables
 rm -rf read-it-and-keep

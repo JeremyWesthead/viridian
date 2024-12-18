@@ -20,14 +20,14 @@ classifiers = [
     "License :: OSI Approved :: MIT License",
 ]
 dependencies = [
+    "cylon @ git+https://github.com/iqbal-lab-org/cylon.git@57d559a76254b0b95785f7c02fa58ef806713e01",
+    "varifier @ git+https://github.com/iqbal-lab-org/varifier.git@8bc8726ed3cdb337dc47b62515e709759e451137",
     "cluster_vcf_records >= 0.13.3",
     "intervaltree",
     "matplotlib",
     "pyfastaq",
     "pysam",
     "requests >= 2.26.0",
-    "varifier @ git+https://github.com/iqbal-lab-org/varifier.git@8bc8726ed3cdb337dc47b62515e709759e451137",
-    "cyclon @ git+https://github.com/iqbal-lab-org/cylon.git@57d559a76254b0b95785f7c02fa58ef806713e01"
 ]
 
 [project.optional-dependencies]
